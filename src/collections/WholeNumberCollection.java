@@ -13,7 +13,18 @@ public class WholeNumberCollection implements MyList {
 
     @Override
     public void add(int i) {
-        if (element.length > 0) {
+        if (i == 666) {
+            try {
+                throw new NumberOfDemonException(i);
+            } catch (NumberOfDemonException e) {
+                //  e.printStackTrace();
+                System.out.println("FATAL ERROR " + e);
+            }
+        }
+        if (element.length == 0) {
+            element = new int[1];
+            element[0] = i;
+        } else if (element.length > 0) {
             int[] temp = element;
             for (int j = 0; j < temp.length; j++) {
                 temp[j] = temp[j] + i;
@@ -21,15 +32,12 @@ public class WholeNumberCollection implements MyList {
             element = new int[temp.length + 1];
             System.arraycopy(temp, 0, element, 0, temp.length);
             element[element.length - 1] = i;
-        } else {
-            element = new int[1];
-            element[0] = i;
         }
     }
 
     @Override
     public void delete(int index) {
-        if (index < 0 || index >= element.length-1) {
+        if (index < 0 || index > element.length - 1) {
             throw new IndexOutOfBoundsException();
         }
         int[] temp = element;
@@ -44,7 +52,7 @@ public class WholeNumberCollection implements MyList {
 
     @Override
     public int get(int index) {
-        if (index < 0 || index >= element.length-1) {
+        if (index < 0 || index > element.length - 1) {
             throw new IndexOutOfBoundsException();
         }
         return element[index];
